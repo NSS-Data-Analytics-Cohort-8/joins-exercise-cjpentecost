@@ -38,6 +38,21 @@ ORDER BY film_title DESC;
 --There are 11 movies with NULL as the Distributor ID
 
 -- 5. Write a query that returns the five distributors with the highest average movie budget.
+SELECT company_name, ROUND(AVG(film_budget),2) AS avg_film_budget
+FROM specs
+INNER JOIN distributors
+ON specs.domestic_distributor_id = distributors.distributor_id
+INNER JOIN revenue
+USING (movie_id)
+GROUP BY company_name
+ORDER BY avg_film_budget DESC
+LIMIT 5; 
+--1. Walt Disney 148,735,526.32
+--2. Sony Pictures 139,129,032.26
+--3. Lionsgate 122,600,000.00
+--4. Dreamworks 121,352,941.18
+--5. Warner Bros. 103,430,985.92
+
 
 -- 6. How many movies in the dataset are distributed by a company which is not headquartered in California? Which of these movies has the highest imdb rating?
 
