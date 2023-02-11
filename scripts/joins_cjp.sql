@@ -13,10 +13,19 @@ INNER JOIN rating
 USING (movie_id)
 GROUP BY release_year
 ORDER BY avg_imbdrating DESC;
---1991 highest rating 7.45
+--1991 highest avg rating 7.45
 
 -- 3. What is the highest grossing G-rated movie? Which company distributed it?
-
+SELECT film_title, mpaa_rating, worldwide_gross, company_name
+FROM specs
+INNER JOIN revenue
+USING (movie_id)
+INNER JOIN distributors
+ON specs.domestic_distributor_id = distributors.distributor_id
+WHERE mpaa_rating ='G'
+ORDER BY worldwide_gross DESC;
+--Toy Story 4, Walt Disney
+ 
 -- 4. Write a query that returns, for each distributor in the distributors table, the distributor name and the number of movies associated with that distributor in the movies 
 -- table. Your result set should include all of the distributors, whether or not they have any movies in the movies table.
 
