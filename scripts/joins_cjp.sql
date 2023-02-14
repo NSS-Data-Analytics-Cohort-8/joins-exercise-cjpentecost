@@ -53,7 +53,26 @@ LIMIT 5;
 --4. Dreamworks 121,352,941.18
 --5. Warner Bros. 103,430,985.92
 
-
 -- 6. How many movies in the dataset are distributed by a company which is not headquartered in California? Which of these movies has the highest imdb rating?
+SELECT headquarters, imdb_rating, film_title, COUNT(movie_id) AS film_count
+FROM specs
+INNER JOIN distributors
+ON specs.domestic_distributor_id = distributors.distributor_id
+INNER JOIN rating
+USING (movie_id)
+WHERE headquarters NOT LIKE '%CA%'
+GROUP BY headquarters, imdb_rating,film_title
+ORDER BY imdb_rating DESC;
+--2 movies distriubuted by companies outside of CA. Dirty Dancing has higher rating.
+
 
 -- 7. Which have a higher average rating, movies which are over two hours long or movies which are under two hours?
+
+SELECT AVG(imdb_rating) AS avg_rating
+FROM rating
+ 	SELECT length_in_min, film_title
+	FROM specs
+	WHERE specs.movie_id = rating.movie_id
+	GROUP BY lenth_in_min
+	
+--this does not work becuase I need to give subqueries more attention. I am re-doing the last datacamp assignment. 
